@@ -56,3 +56,12 @@ representing the board,
 
 and the symbol 'x', telling it it plays as player-1, a bot might
 return the integer 8 to play to the bottom, leftmost cell and win.
+
+
+Since it looks easy for x to win, you can force one or both players
+to play random moves on certain turns by sending a sequence of turn
+numbers, which start at 0, to runner.py's play method. For example,
+to force a random move on the first turn change the last line of runner.py
+under "if __name__ == '__main__':" to
+
+play([0,])

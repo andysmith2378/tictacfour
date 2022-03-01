@@ -8,6 +8,10 @@ BOTS_PLAYING = {Bot.PLAYER_1: Bots.Immediate(),
 
 def makemove(boardtuple, boardlist, movenumber, turn):
     move = BOTS_PLAYING[turn](boardtuple, turn)
+    handlemove(boardlist, move, movenumber, turn)
+
+
+def handlemove(boardlist, move, movenumber, turn):
     if move is None:
         raise RuntimeError(
             f'{BOTS_PLAYING[turn].__class__.__name__} did not return a move')
@@ -34,18 +38,24 @@ def draw(board, rowdivider="\n---+---+---+---\n"):
                            for indx in range(0, 12, 4)]))
 
 
-def play(turn=Bot.PLAYER_1):
-    boardList = [''] * 12
+def play(randommoves=None, turn=Bot.PLAYER_1):
+    boardlist = [''] * 12
+    if randommoves is not None:
+        randombot = Bots.RandomChoice()
     for movenumber in range(1, 13):
-        board = tuple(boardList)
+        board = tuple(boardlist)
         draw(board)
         try:
-            makemove(board, boardList, movenumber, turn)
+            if (randommoves is not None) and (movenumber in randommoves):
+                move = randombot(board, turn)
+            else:
+                move = BOTS_PLAYING[turn](board, turn)
+            handlemove(boardlist, move, movenumber, turn)
         except RuntimeError as err:
             raise err
             exit()
         turn = Bot.PLAYER_2 if turn == Bot.PLAYER_1 else Bot.PLAYER_1
-    draw(boardList)
+    draw(boardlist)
     print('\ndraw\n')
 
 
