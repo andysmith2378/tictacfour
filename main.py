@@ -1,7 +1,7 @@
 class Bot(object):
     def __call__(self, board, player):
         """ Receives a 12-member tuple, (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            representing the board,
+            representing the boardtuple,
 
               0 |  1 |  2 |  3
             ----+----+----+----
@@ -28,7 +28,7 @@ class Bot(object):
 
             For example, receiving the tuple,
             ('', '', 'x', 'o', 'o', 'x', 'x', 'o', '', '', 'o', 'x'),
-            representing the board,
+            representing the boardtuple,
 
                 |    |  x |  o
             ----+----+----+----
@@ -49,9 +49,9 @@ class Bot(object):
     PLAYER_1, PLAYER_2 = 'x', 'o'
 
 
-def checkForWin(board, player, winningTuples):
+def checkforwin(board, player, winningtuples):
     places = [indx for indx, member in enumerate(board) if member == player]
-    for win in winningTuples:
+    for win in winningtuples:
         if win[0] in places and win[1] in places and win[2] in places:
             return True
     return False

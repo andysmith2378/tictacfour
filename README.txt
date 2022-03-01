@@ -1,3 +1,6 @@
+Plays tic-tac-toe on a three-by-four board
+
+
 Run a new game with:
 
     python -m runner.py
@@ -10,14 +13,16 @@ BOTS_PLAYING at the top of runner.py here:
                     Bot.PLAYER_2: Bots.RandomChoice()}
 
 
-The __call__ method of each bot receives a 12-member tuple,
+The __call__ method of each bot receives a twelve-member tuple,
 (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), representing the board,
 
-  0 |  1 |  2 |  3
-----+----+----+----
-  4 |  5 |  6 |  7
-----+----+----+----
-  8 |  9 | 10 | 11
++----+----+----+----+
+|  0 |  1 |  2 |  3 |
++----+----+----+----+
+|  4 |  5 |  6 |  7 |
++----+----+----+----+
+|  8 |  9 | 10 | 11 |
++----+----+----+----+
 
 where each 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 equals either:
 
@@ -41,11 +46,13 @@ For example, receiving the tuple,
 ('', '', 'x', 'o', 'o', 'x', 'x', 'o', '', '', 'o', 'x'),
 representing the board,
 
-    |    |  x |  o
-----+----+----+----
-  o |  x |  x |  o
-----+----+----+----
-    |    |  o |  x
++----+----+----+----+
+|    |    |  x |  o |
++----+----+----+----+
+|  o |  x |  x |  o |
++----+----+----+----+
+|    |    |  o |  x |
++----+----+----+----+
 
 and the symbol 'x', telling it it plays as player-1, a bot might
 return the integer 8 to play to the bottom, leftmost cell and win.

@@ -8,10 +8,10 @@ class FirstOpen(main.Bot):
 
 class RandomChoice(main.Bot):
     def __call__(self, board, player):
-        return random.choice(RandomChoice.openCells(board))
+        return random.choice(RandomChoice.opencells(board))
 
     @staticmethod
-    def openCells(board):
+    def opencells(board):
         return [ind for ind, member in enumerate(board) if member == '']
 
 
@@ -22,16 +22,16 @@ class Immediate(RandomChoice):
             return RandomChoice.__call__(self, board, player)
         return move
 
-    def threeinarow(self, board, player):
+    def threeinarow(self, boardtuple, player):
         enemy = Immediate.fetchEnemy(player)
         block = None
-        for candidate in RandomChoice.openCells(board):
-            result            = list(board)
-            result[candidate] = player
-            if main.checkForWin(result, player, main.Bot.THREE_IN_A_ROW):
+        for candidate in RandomChoice.opencells(boardtuple):
+            boardlist            = list(boardtuple)
+            boardlist[candidate] = player
+            if main.checkforwin(boardlist, player, main.Bot.THREE_IN_A_ROW):
                 return candidate
-            result[candidate] = enemy
-            if main.checkForWin(result, enemy, main.Bot.THREE_IN_A_ROW):
+            boardlist[candidate] = enemy
+            if main.checkforwin(boardlist, enemy, main.Bot.THREE_IN_A_ROW):
                 block = candidate
         return block
 
@@ -74,13 +74,12 @@ class Pairs(Immediate):
                                 if self.checkForSecond(board, n, placeTuple, enemy):
                                     block = centre
             if block is None:
-                options = RandomChoice.openCells(board)
+                options = RandomChoice.opencells(board)
                 for favourite in Pairs.PREFERENCES:
                     if favourite in options:
                         return favourite
                 return main.Bot.__call__(self, board, player)
-            else:
-                return block
+            return block
         return move
 
     def checkForSecond(self, board, indx, placeTuple, target):
